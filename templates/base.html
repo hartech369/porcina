@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ElectriPorc - Automatizaciones para Granja Porcina{% endblock %}</title>
+    <meta name="description" content="Líderes en automatizaciones para granjas porcinas: comederos, bebederos, jaulas de gestación, inseminación, calefacción y más.">
+    <meta name="keywords" content="automatizaciones porcinas, comederos para cerdos, bebederos, jaulas de gestación, inseminación artificial, calefacción para cerdos">
+    <meta name="author" content="ElectriPorc">
+    <meta property="og:title" content="ElectriPorc - Automatizaciones para Granja Porcina">
+    <meta property="og:description" content="Las mejores automatizaciones para tu granja porcina. Comederos, bebederos, jaulas y más.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#20A95D',
+                        secondary: '#d78b71',
+                        light: '#FFFFFF'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'slide-down': 'slideDown 0.3s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-10px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Alpine.js Collapse Plugin -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="font-sans text-gray-800 bg-light" x-data="{ 
+    mobileMenuOpen: false,
+    scrolled: false 
+}" x-init="
+    window.addEventListener('scroll', () => {
+        scrolled = window.scrollY > 50;
+    });
+">
+
+    <!-- WhatsApp Float Button -->
+    <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3" x-data="{ showTooltip: false }">
+        <div x-show="showTooltip" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:leave="transition ease-in duration-150"
+             class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium shadow-xl"
+             @mouseenter="showTooltip = true" 
+             @mouseleave="showTooltip = false">
+            ¡Escríbenos!
+        </div>
+        <a href="https://wa.me/5215512345678?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos%20para%20granjas%20porcinas" 
+           target="_blank"
+           class="group flex items-center gap-3">
+             <span class="hidden md:block text-primary font-semibold text-sm group-hover:text-primary transition">
+                ¡Hablemos!
+            </span>
+            <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 animate-pulse-slow">
+                <i class="ph ph-whatsapp-logo text-3xl text-white"></i>
+            </div>
+        </a>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
+            :class="scrolled ? 'bg-white/95 backdrop-blur-lg shadow-lg shadow-green-500/20 py-3' : 'bg-transparent py-5'">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="{% url 'home' %}" class="flex items-center gap-3 group">
+
+                    <div class="flex flex-col">
+                      <div class="flex items-center">
+                         <img src="{% static 'img/logo.png' %}" alt="Logo" :class="scrolled ? 'h-12' : 'h-24'" class="object-contain transition-all duration-300">
+                      </div>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="{% url 'home' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Inicio</a>
+                    <a href="{% url 'nosotros' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Quiénes Somos</a>
+                    <a href="{% url 'servicios' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Servicios</a>
+                    <a href="{% url 'productos' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Productos</a>
+                    <a href="{% url 'galeria' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Proyectos</a>
+                    <a href="{% url 'testimonios' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Testimonios</a>
+                     <a href="{% url 'contacto' %}" class="ml-4 bg-primary text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-green-600 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center gap-2">
+                        <span>Cotizar Ahora</span>
+                        <i class="ph ph-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen"
+                        class="lg:hidden p-2 text-gray-800 hover:text-primary hover:bg-white/10 rounded-lg transition">
+                    <i class="ph text-2xl" :class="mobileMenuOpen ? 'ph-x' : 'ph-list'"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div x-show="mobileMenuOpen"
+                 x-collapse
+                 class="lg:hidden mt-4 pb-6 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+                <div class="flex flex-col">
+                    <a href="{% url 'home' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Inicio</a>
+                    <a href="{% url 'nosotros' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Quiénes Somos</a>
+                    <a href="{% url 'servicios' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Servicios</a>
+                    <a href="{% url 'productos' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Productos</a>
+                    <a href="{% url 'galeria' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Proyectos</a>
+                    <a href="{% url 'testimonios' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Testimonios</a>
+                    <a href="{% url 'contacto' %}" class="mx-5 mt-4 mb-2 bg-secondary text-white px-6 py-3 rounded-xl font-bold text-center shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                        Cotizar Ahora
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative bg-gray-50 text-gray-800 pt-20 pb-10 overflow-hidden">
+        <!-- Green Gradient Decorations -->
+        <div class="absolute top-0 left-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-[300px] h-[300px] bg-secondary/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+                            <i class="ph ph-piggy-bank text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold text-gray-800">ElectriPorc</span>
+                            <p class="text-xs text-gray-600">Automatizaciones</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-6 leading-relaxed">
+                        Líderes en equipamiento para granjas porcinas en México. Comprometidos con la calidad y el éxito de tu producción.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition text-gray-600">
+                            <i class="ph ph-facebook-logo text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition text-gray-600">
+                            <i class="ph ph-instagram-logo text-xl"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition text-gray-600">
+                            <i class="ph ph-youtube-logo text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Products -->
+                <div>
+                    <h4 class="font-bold text-lg mb-5 text-gray-800">Productos</h4>
+                    <ul class="space-y-3">
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Comederos Automáticos</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Bebederos Nipple</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Jaulas de Gestación</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Jaulas de Parición</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Equipos de Inseminación</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Sistemas de Calefacción</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="font-bold text-lg mb-5 text-gray-800">Servicios</h4>
+                    <ul class="space-y-3">
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Diseño de Granjas</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Instalación Profesional</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Mantenimiento</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Asesoría Técnica</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Capacitación</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-bold text-lg mb-5 text-gray-800">Contacto</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="ph ph-phone text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm">Teléfono</p>
+                                <p class="text-gray-800 font-medium">(55) 1234-5678</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="ph ph-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm">Email</p>
+                                <p class="text-gray-800 font-medium">contacto@electriporc.com</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="ph ph-map-pin text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 text-sm">Dirección</p>
+                                <p class="text-gray-800 font-medium">Ciudad de México, México</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-600 text-sm">&copy; 2026 ElectriPorc. Todos los derechos reservados.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-gray-600 hover:text-primary text-sm transition">Términos y Condiciones</a>
+                    <a href="#" class="text-gray-600 hover:text-primary text-sm transition">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Initialization -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100,
+                easing: 'ease-out-cubic'
+            });
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
