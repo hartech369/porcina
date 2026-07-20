@@ -4,7 +4,7 @@ venv/
 __pycache__/
 *.pyc
 
-db.sqlite3
+#db.sqlite3
 
 media/
 
@@ -16,7 +16,7 @@ staticfiles/
 
 *.log
 
-*.sqlite3
+#*.sqlite3
 
 node_modules/
 
