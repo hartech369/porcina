@@ -1,176 +1,217 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Proyectos Realizados - ElectriPorc{% endblock %}
 
 {% block content %}
-<!-- Header Section - Modern Hero -->
-<section class="relative py-16 lg:py-24 bg-gray-50 overflow-hidden">
-    <!-- Animated Background -->
+<!-- Header -->
+<section class="relative py-16 lg:py-12 bg-gray-50 overflow-hidden">
     <div class="absolute inset-0">
         <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-3xl"></div>
     </div>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <span class="inline-block bg-primary/10 text-primary px-5 py-2 rounded-full text-sm font-semibold mb-4">
-            Portfolio de Éxitos
-        </span>
-        <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 leading-tight">
-            PROYECTOS <span class="text-primary">REALIZADOS</span>
+        <h1 class="text-5xl sm:text-5xl font-bold text-secondary mb-4 leading-tight" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+            Proyectos ElectriPorc</span>
         </h1>
-        <p class="text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
-            Granjas transformadas por nuestros equipos en todo México
+        <p class="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
+            Soluciones instaladas en granjas porcícolas <br> en toda Colombia y Latinoamérica
         </p>
     </div>
 </section>
 
-<!-- Galería de Proyectos - Modern Masonry -->
+<!-- Proyectos -->
 <section class="py-12 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Section Header -->
-        <div class="text-center mb-4">
-            <span class="inline-block bg-primary/10 text-primary px-5 py-2 rounded-full text-sm font-semibold mb-6">Galería de Proyectos</span>
-            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">TRANSFORMACIONES REALES</h2>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto">Cada proyecto es una historia de éxito. Conoce algunas de las granjas que hemos equipado.</p>
-        </div>
-
-        <!-- Masonry Gallery Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {% for proyecto in proyectos %}
-            <div class="group relative overflow-hidden rounded-2xl bg-white shadow-lg shadow-gray-200/50 border border-gray-100 hover:shadow-2xl hover:shadow-[#20A95D]/10 transition-all duration-500 {% if forloop.counter|divisibleby:3 %}md:col-span-2 lg:col-span-1{% endif %}">
-                <!-- Image Container -->
-                <div class="aspect-[4/3] bg-gray-100 overflow-hidden relative">
-                    <img src="{{ proyecto.imagen }}" 
-                         alt="{{ proyecto.titulo }}" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                    
-                    <!-- Gradient Overlay on Hover -->
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    
-                    <!-- Location Badge -->
-                    <div class="absolute top-4 left-4 transform -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
-                        <span class="inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        {% for proyecto in proyectos %}
+        {% with imagenes=proyecto.imagenes.all %}
+        <div class="group rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-1 card-hover {% if forloop.counter|divisibleby:2 %}bg-secondary{% else %}bg-primary{% endif %}" 
+             x-data="{ 
+                 open{{ forloop.counter }}: false, 
+                 currentSlide{{ forloop.counter }}: 0, 
+                 totalSlides{{ forloop.counter }}: {{ imagenes|length }},
+                 prev{{ forloop.counter }}() { this.currentSlide{{ forloop.counter }} = (this.currentSlide{{ forloop.counter }} - 1 + this.totalSlides{{ forloop.counter }}) % this.totalSlides{{ forloop.counter }}; },
+                 next{{ forloop.counter }}() { this.currentSlide{{ forloop.counter }} = (this.currentSlide{{ forloop.counter }} + 1) % this.totalSlides{{ forloop.counter }}; }
+             }" 
+             data-aos="fade-up" data-aos-duration="600" data-aos-delay="{{ forloop.counter0|add:1 }}">
+            
+            {% if forloop.counter|divisibleby:2 %}
+            <!-- Imagen derecha, texto izquierda -->
+            <div class="flex flex-col md:flex-row">
+                <div class="flex-1 p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-white mb-4">{{ proyecto.titulo }}</h3>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-buildings text-white text-sm"></i>
+                            <span class="text-white/90 text-sm">{{ proyecto.cliente }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-map-pin text-white text-sm"></i>
+                            <span class="text-white/90 text-sm">{{ proyecto.ubicacion }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-calendar text-white text-sm"></i>
+                            <span class="text-white/90 text-sm">{{ proyecto.periodo_ejecucion }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-wrench text-white text-sm"></i>
+                            <span class="text-white/90 text-sm">{{ proyecto.tipo_trabajo }}</span>
+                        </div>
+                    </div>
+                    <p class="text-white/90 text-sm leading-relaxed mb-4 {% if not imagenes %}line-clamp-none{% else %}line-clamp-4{% endif %}">{{ proyecto.descripcion }}</p>
+                    {% if imagenes %}
+                    <button @click="open{{ forloop.counter }} = !open{{ forloop.counter }}" class="flex items-center gap-2">
+                        <span class="text-white text-sm font-semibold" x-text="open{{ forloop.counter }} ? 'Ocultar descripción' : 'Ver descripción completa'">Ver descripción completa</span>
+                        <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                            <svg class="w-3 h-3 transition-transform" :class="open{{ forloop.counter }} ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #d78b71">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
-                            {{ proyecto.ubicacion }}
                         </span>
+                    </button>
+                    <div x-show="open{{ forloop.counter }}" x-collapse x-cloak class="mt-4 border-t border-white/20 pt-4">
+                        <p class="text-white/90 text-sm leading-relaxed">{{ proyecto.descripcion }}</p>
                     </div>
-                    
-                    <!-- View Project Button -->
-                    <div class="absolute bottom-4 left-4 right-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                        <a href="{% url 'contacto' %}" class="flex items-center justify-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-xl font-bold hover:bg-green-50 transition-all shadow-lg">
-                            <span>Ver Proyecto</span>
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                            </svg>
-                        </a>
-                    </div>
+                    {% endif %}
                 </div>
-                
-                <!-- Content -->
-                <div class="p-4">
-                    <h3 class="text-base font-bold text-gray-900 mb-1 group-hover:text-gray-900 transition-colors">{{ proyecto.titulo }}</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed">{{ proyecto.desc }}</p>
-                    <div class="mt-4 flex items-center gap-4 text-sm text-gray-500">
-                        <span class="flex items-center gap-1">
-                            <svg class="w-4 h-4 text-[#20A95D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                            2023
-                        </span>
-                        <span class="flex items-center gap-1">
-                            <svg class="w-4 h-4 text-[#20A95D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                            </svg>
-                            Granja Completa
-                        </span>
+                {% if imagenes %}
+                <div class="flex-1 relative overflow-hidden">
+                    {% for img in imagenes %}
+                    <img src="{% static img.imagen_ruta %}" 
+                         alt="{{ proyecto.titulo }} - {{ img.numero }}"
+                         class="w-full h-64 md:h-full object-cover absolute inset-0 transition-opacity duration-500"
+                         :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'opacity-100' : 'opacity-0'">
+                    {% endfor %}
+                    {% if imagenes|length > 1 %}
+                    <button @click="prev{{ forloop.counter }}()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10">
+                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <button @click="next{{ forloop.counter }}()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10">
+                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                        {% for img in imagenes %}
+                        <button @click="currentSlide{{ forloop.parentloop.counter }} = {{ forloop.counter0 }}" class="w-2.5 h-2.5 rounded-full transition-all" :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'bg-white scale-110' : 'bg-white/50'"></button>
+                        {% endfor %}
                     </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            {% else %}
+            <!-- Imagen izquierda, texto derecha -->
+            <div class="flex flex-col md:flex-row">
+                {% if imagenes %}
+                <div class="flex-1 relative overflow-hidden">
+                    {% for img in imagenes %}
+                    <img src="{% static img.imagen_ruta %}" 
+                         alt="{{ proyecto.titulo }} - {{ img.numero }}"
+                         class="w-full h-64 md:h-full object-cover absolute inset-0 transition-opacity duration-500"
+                         :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'opacity-100' : 'opacity-0'">
+                    {% endfor %}
+                    {% if imagenes|length > 1 %}
+                    <button @click="prev{{ forloop.counter }}()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10">
+                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <button @click="next{{ forloop.counter }}()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10">
+                        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                        {% for img in imagenes %}
+                        <button @click="currentSlide{{ forloop.parentloop.counter }} = {{ forloop.counter0 }}" class="w-2.5 h-2.5 rounded-full transition-all" :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'bg-white scale-110' : 'bg-white/50'"></button>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <div class="flex-1 p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-white mb-4">{{ proyecto.titulo }}</h3>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-buildings text-white text-sm"></i>
+                            <span class="text-white/90 text-sm">{{ proyecto.cliente }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-map-pin text-white text-sm"></i>
+                            <span class="text-white/90 text-sm">{{ proyecto.ubicacion }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-calendar text-white text-sm"></i>
+                            <span class="text-white/90 text-sm">{{ proyecto.periodo_ejecucion }}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="ph ph-wrench text-white text-sm"></i>
+                            <span class="text-white/90 text-sm">{{ proyecto.tipo_trabajo }}</span>
+                        </div>
+                    </div>
+                    <p class="text-white/90 text-sm leading-relaxed mb-4 {% if not imagenes %}line-clamp-none{% else %}line-clamp-4{% endif %}">{{ proyecto.descripcion }}</p>
+                    {% if imagenes %}
+                    <button @click="open{{ forloop.counter }} = !open{{ forloop.counter }}" class="flex items-center gap-2">
+                        <span class="text-white text-sm font-semibold" x-text="open{{ forloop.counter }} ? 'Ocultar descripción' : 'Ver descripción completa'">Ver descripción completa</span>
+                        <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                            <svg class="w-3 h-3 transition-transform" :class="open{{ forloop.counter }} ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #20A95D">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div x-show="open{{ forloop.counter }}" x-collapse x-cloak class="mt-4 border-t border-white/20 pt-4">
+                        <p class="text-white/90 text-sm leading-relaxed">{{ proyecto.descripcion }}</p>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
-            {% endfor %}
+            {% endif %}
+
         </div>
-        
-        <!-- Load More Button -->
-        <div class="text-center mt-4">
-            <a href="{% url 'contacto' %}" class="group inline-flex items-center gap-3 bg-white text-gray-900 border-2 border-gray-200 px-8 py-4 rounded-xl font-bold hover:border-[#20A95D] hover:text-gray-900 transition-all">
-                <span>Ver Todos Los Proyectos</span>
-                <svg class="w-5 h-5 transform group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                </svg>
-            </a>
-        </div>
+        {% endwith %}
+        {% endfor %}
     </div>
 </section>
 
-<!-- Stats Section - Modern Dark with Gradients -->
-<section class="py-12 bg-primary/5 relative overflow-hidden">
-    <!-- Background Effects -->
-    <div class="absolute top-0 left-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-3xl"></div>
-    
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center mb-4">
-            <span class="inline-block bg-[#20A95D]/10 text-primary px-5 py-2 rounded-full text-sm font-semibold mb-6">
-                Nuestro Impacto
-            </span>
-            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">RESULTADOS QUE HABLAN</h2>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto">Números que respaldan nuestra experiencia y compromiso</p>
-        </div>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="group bg-white backdrop-blur-sm border border-gray-100 rounded-2xl p-5 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300 text-center">
-                <p class="text-3xl sm:text-4xl font-bold text-primary">500+</p>
-                <p class="text-gray-600 mt-2">Proyectos Completados</p>
-            </div>
-            <div class="group bg-white backdrop-blur-sm border border-gray-100 rounded-2xl p-5 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300 text-center">
-                <p class="text-3xl sm:text-4xl font-bold text-primary">15+</p>
-                <p class="text-gray-600 mt-2">Estados de México</p>
-            </div>
-            <div class="group bg-white backdrop-blur-sm border border-gray-100 rounded-2xl p-5 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300 text-center">
-                <p class="text-3xl sm:text-4xl font-bold text-primary">50k+</p>
-                <p class="text-gray-600 mt-2">Equipos Instalados</p>
-            </div>
-            <div class="group bg-white backdrop-blur-sm border border-gray-100 rounded-2xl p-5 hover:bg-primary/5 hover:border-primary/50 transition-all duration-300 text-center">
-                <p class="text-3xl sm:text-4xl font-bold text-primary">98%</p>
-                <p class="text-gray-600 mt-2">Clientes Satisfechos</p>
-            </div>
-        </div>
+<!-- CTA -->
+<section class="py-12 bg-gradient-to-br from-primary via-primary to-green-700 relative overflow-hidden">
+    <div class="absolute inset-0">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-secondary/20 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -translate-x-1/2 translate-y-1/2"></div>
     </div>
-</section>
-
-<!-- CTA Section - Modern -->
-<section class="relative py-12 bg-primary overflow-hidden">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <span class="inline-block bg-white/20 backdrop-blur-sm text-white px-5 py-2 rounded-full text-sm font-semibold mb-6">
-            Tu Granja Puede Ser Siguiente
-        </span>
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
-            ¿QUIERES SER PARTE DE<br/>
-            <span class="text-secondary">NUESTROS PROYECTOS?</span>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight" data-aos="fade-down" data-aos-duration="600">
+            ¿Tienes un proyecto en mente?</span>
         </h2>
-        <p class="text-white/90 text-sm mb-4 max-w-lg mx-auto">
-            Tu granja podría ser nuestra siguiente historia de éxito. Equipamiento de última generación para resultados extraordinarios.
+        <p class="text-white/90 text-lg mb-6 max-w-lg mx-auto" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+            Cuéntanos tu idea y diseñamos la solución perfecta para tu granja porcina
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200">
             <a href="{% url 'contacto' %}" 
-               class="group inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-green-50 transition-all shadow-lg shadow-primary/20">
-                <span>INICIAR PROYECTO</span>
-                <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               class="group inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-3.5 rounded-lg font-semibold text-lg hover:bg-green-50 transition-all shadow-xl btn-animate">
+                <span>Solicitar Cotización</span>
+                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>
             </a>
-            <a href="https://wa.me/5215512345678?text=Hola%20ElectriPorc,%20quiero%20iniciar%20un%20proyecto" 
+            <a href="https://wa.me/573014968993?text=Hola%20ElectriPorc,%20quiero%20iniciar%20un%20proyecto" 
                target="_blank"
-               class="group inline-flex items-center justify-center gap-2 bg-transparent text-white border-2 border-white/50 px-7 py-3.5 rounded-lg font-semibold text-sm hover:bg-white/10 transition-all">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+               class="group inline-flex items-center justify-center gap-2 bg-transparent text-white border-2 border-white/50 px-7 py-3.5 rounded-lg font-semibold text-lg hover:bg-white/10 transition-all btn-animate">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
                 </svg>
                 <span>Consultar por WhatsApp</span>
             </a>
         </div>
-        <p class="text-white/60 text-sm mt-8">Asesoría gratuita para evaluar tu proyecto</p>
     </div>
 </section>
 {% endblock %}

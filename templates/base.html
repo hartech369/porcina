@@ -101,17 +101,13 @@
              @mouseleave="showTooltip = false">
             ¡Escríbenos!
         </div>
-        <a href="https://wa.me/5215512345678?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos%20para%20granjas%20porcinas" 
-           target="_blank"
-           class="group flex items-center gap-3">
-             <span class="hidden md:block text-primary font-semibold text-sm group-hover:text-primary transition">
-                ¡Hablemos!
-            </span>
-            <div class="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 animate-pulse-slow">
-                <i class="ph ph-whatsapp-logo text-3xl text-white"></i>
-            </div>
+        <a href="https://wa.me/573014968993?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos%20para%20granjas%20porcinas" 
+           target="_blank" 
+           class="flex items-center justify-center w-16 h-16 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300"
+           style="background-color: #25D366;">
+            <i class="ph ph-whatsapp-logo text-5xl text-white"></i>
         </a>
-    </div>
+    </div>  
 
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
@@ -130,14 +126,15 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden lg:flex items-center gap-1">
-                    <a href="{% url 'home' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Inicio</a>
-                    <a href="{% url 'nosotros' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Quiénes Somos</a>
-                    <a href="{% url 'servicios' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Servicios</a>
-                    <a href="{% url 'productos' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Productos</a>
-                    <a href="{% url 'galeria' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Proyectos</a>
-                    <a href="{% url 'testimonios' %}" class="px-4 py-2 text-gray-800 hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Testimonios</a>
+                    <a href="{% url 'home' %}" class="px-4 py-2 {% if request.resolver_match.url_name == 'home' %}text-primary{% else %}text-gray-800{% endif %} hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Inicio</a>
+                    <a href="{% url 'nosotros' %}" class="px-4 py-2 {% if request.resolver_match.url_name == 'home' %}text-primary{% else %}text-gray-800{% endif %} hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Nosotros</a>
+                    <a href="{% url 'servicios' %}" class="px-4 py-2 {% if request.resolver_match.url_name == 'home' %}text-primary{% else %}text-gray-800{% endif %} hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Servicios</a>
+                    <a href="{% url 'productos' %}" class="px-4 py-2 {% if request.resolver_match.url_name == 'home' %}text-primary{% else %}text-gray-800{% endif %} hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Productos</a>
+                    <a href="{% url 'galeria' %}" class="px-4 py-2 {% if request.resolver_match.url_name == 'home' %}text-primary{% else %}text-gray-800{% endif %} hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Proyectos</a>
+                    <a href="{% url 'testimonios' %}" class="px-4 py-2 {% if request.resolver_match.url_name == 'home' %}text-primary{% else %}text-gray-800{% endif %} hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">Testimonios</a>
+                    <a href="{% url 'faq' %}" class="px-4 py-2 {% if request.resolver_match.url_name == 'home' %}text-primary{% else %}text-gray-800{% endif %} hover:text-primary font-medium rounded-lg hover:bg-primary/5 transition">FAQ</a>
                      <a href="{% url 'contacto' %}" class="ml-4 bg-primary text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-green-600 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center gap-2">
-                        <span>Cotizar Ahora</span>
+                        <span>Contacto</span>
                         <i class="ph ph-arrow-right"></i>
                     </a>
                 </div>
@@ -155,13 +152,14 @@
                  class="lg:hidden mt-4 pb-6 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
                 <div class="flex flex-col">
                     <a href="{% url 'home' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Inicio</a>
-                    <a href="{% url 'nosotros' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Quiénes Somos</a>
+                    <a href="{% url 'nosotros' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Nosotros</a>
                     <a href="{% url 'servicios' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Servicios</a>
                     <a href="{% url 'productos' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Productos</a>
                     <a href="{% url 'galeria' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Proyectos</a>
                     <a href="{% url 'testimonios' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">Testimonios</a>
+                    <a href="{% url 'faq' %}" class="px-6 py-3.5 text-gray-800 hover:text-primary font-semibold hover:bg-green-50 transition border-b border-gray-100">FAQ</a>
                     <a href="{% url 'contacto' %}" class="mx-5 mt-4 mb-2 bg-secondary text-white px-6 py-3 rounded-xl font-bold text-center shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                        Cotizar Ahora
+                        Contacto
                     </a>
                 </div>
             </div>
@@ -184,84 +182,87 @@
                 <!-- Company Info -->
                 <div>
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-                            <i class="ph ph-piggy-bank text-2xl text-white"></i>
-                        </div>
-                        <div>
-                            <span class="text-xl font-bold text-gray-800">ElectriPorc</span>
-                            <p class="text-xs text-gray-600">Automatizaciones</p>
-                        </div>
+                        <img src="{% static 'img/logo.png' %}" alt="ElectriPorc Logo" class="h-14 object-contain">
                     </div>
                     <p class="text-gray-600 text-sm mb-6 leading-relaxed">
-                        Líderes en equipamiento para granjas porcinas en México. Comprometidos con la calidad y el éxito de tu producción.
+                        Líderes en equipamiento para granjas porcinas en Colombia. Comprometidos con la calidad y el éxito de tu producción.
                     </p>
                     <div class="flex gap-3">
-                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition text-gray-600">
+                        <a href="https://www.facebook.com/Electriporc/" target="_blank" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
                             <i class="ph ph-facebook-logo text-xl"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition text-gray-600">
+                        <a href="https://www.instagram.com/electriporc/" target="_blank" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
                             <i class="ph ph-instagram-logo text-xl"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition text-gray-600">
-                            <i class="ph ph-youtube-logo text-xl"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Products -->
                 <div>
-                    <h4 class="font-bold text-lg mb-5 text-gray-800">Productos</h4>
+                    <h4 class="font-bold text-lg mb-5 text-primary">Productos</h4>
                     <ul class="space-y-3">
-                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Comederos Automáticos</a></li>
-                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Bebederos Nipple</a></li>
-                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Jaulas de Gestación</a></li>
-                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Jaulas de Parición</a></li>
-                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Equipos de Inseminación</a></li>
-                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Sistemas de Calefacción</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Alimentación</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Silos y almacenamiento</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Materiales para automatizar</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Motores y reductores</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Producción Porcina</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Producción Repuestos y accesorios</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-gray-600 hover:text-primary transition text-sm">Equipos complementarios</a></li>
+                        
                     </ul>
                 </div>
 
                 <!-- Services -->
                 <div>
-                    <h4 class="font-bold text-lg mb-5 text-gray-800">Servicios</h4>
+                    <h4 class="font-bold text-lg mb-5 text-primary">Servicios</h4>
                     <ul class="space-y-3">
-                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Diseño de Granjas</a></li>
-                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Instalación Profesional</a></li>
-                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Mantenimiento</a></li>
-                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Asesoría Técnica</a></li>
-                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Capacitación</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Asesoría técnica</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Instalación profesional</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Automatización de procesos</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Soporte técnico postventa</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Importación directa de equipos</a></li>
+                        <li><a href="{% url 'servicios' %}" class="text-gray-600 hover:text-primary transition text-sm">Cobertura nacional y Latinoamérica</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact -->
                 <div>
-                    <h4 class="font-bold text-lg mb-5 text-gray-800">Contacto</h4>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <i class="ph ph-phone text-primary"></i>
+                    <h4 class="font-bold text-lg mb-5 text-primary">Contacto</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2.5">
+                            <div class="w-6 h-6 bg-primary rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="ph ph-map-pin text-xs text-white"></i>
                             </div>
                             <div>
-                                <p class="text-gray-600 text-sm">Teléfono</p>
-                                <p class="text-gray-800 font-medium">(55) 1234-5678</p>
+                                <p class="text-gray-500 text-xs">Dirección</p>
+                                <p class="text-gray-800 text-sm leading-snug">Calle 48 Sur CR 78 A 26, San Antonio de Prado</p>
                             </div>
                         </li>
-                        <li class="flex items-start gap-3">
-                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <i class="ph ph-envelope text-primary"></i>
+                        <li class="flex items-start gap-2.5">
+                            <div class="w-6 h-6 bg-primary rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="ph ph-phone text-xs text-white"></i>
                             </div>
                             <div>
-                                <p class="text-gray-600 text-sm">Email</p>
-                                <p class="text-gray-800 font-medium">contacto@electriporc.com</p>
+                                <p class="text-gray-500 text-xs">Celular</p>
+                                <p class="text-gray-800 text-sm">300 496 2910 - 301 496 8993</p>
                             </div>
                         </li>
-                        <li class="flex items-start gap-3">
-                            <div class="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <i class="ph ph-map-pin text-primary"></i>
+                        <li class="flex items-start gap-2.5">
+                            <div class="w-6 h-6 bg-primary rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="ph ph-envelope text-xs text-white"></i>
                             </div>
                             <div>
-                                <p class="text-gray-600 text-sm">Dirección</p>
-                                <p class="text-gray-800 font-medium">Ciudad de México, México</p>
+                                <p class="text-gray-500 text-xs">Email</p>
+                                <p class="text-gray-800 text-sm">electriporc199@gmail.com</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <div class="w-6 h-6 bg-primary rounded flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="ph ph-clock text-xs text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-500 text-xs">Horario</p>
+                                <p class="text-gray-800 text-sm">8 AM - 6 PM</p>
                             </div>
                         </li>
                     </ul>
@@ -269,11 +270,12 @@
             </div>
 
             <!-- Bottom Footer -->
-            <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row items-center gap-8">
                 <p class="text-gray-600 text-sm">&copy; 2026 ElectriPorc. Todos los derechos reservados.</p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-gray-600 hover:text-primary text-sm transition">Términos y Condiciones</a>
-                    <a href="#" class="text-gray-600 hover:text-primary text-sm transition">Política de Privacidad</a>
+                <div class="flex flex-wrap gap-x-6 gap-y-2 md:ml-auto md:mr-16">
+                    <a href="{% url 'terminos' %}" class="text-gray-600 hover:text-primary text-sm transition">Términos y Condiciones</a>
+                    <a href="{% url 'privacidad' %}" class="text-gray-600 hover:text-primary text-sm transition">Política de Privacidad</a>
+                    <a href="{% url 'tratamiento_datos' %}" class="text-gray-600 hover:text-primary text-sm transition">Política de Tratamiento de Datos Personales</a>
                 </div>
             </div>
         </div>

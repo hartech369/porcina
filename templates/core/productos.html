@@ -4,71 +4,51 @@
 {% block title %}Catálogo de Productos - ElectriPorc{% endblock %}
 
 {% block content %}
-<!-- Header Section - Modern Hero -->
+<!-- Header Section -->
 <section class="relative py-16 lg:py-24 bg-gray-50 overflow-hidden">
-    <!-- Animated Background -->
     <div class="absolute inset-0">
         <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-3xl"></div>
     </div>
-
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <span class="inline-block bg-primary/10 text-primary px-5 py-2 rounded-full text-sm font-semibold mb-4">
-            Catálogo 2026
-        </span>
-        <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 leading-tight">
-            CATÁLOGO DE <span class="text-primary">PRODUCTOS</span>
+        <br>
+        <br>
+        <br>
+        
+        <h1 class="text-5xl sm:text-5xl font-bold text-primary mb-6 leading-tight" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+            Catálogo de Productos
         </h1>
-        <p class="text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
+        <p class="text-lg text-gray-500 leading-relaxed" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
             Equipos de alta calidad para cada etapa de la producción porcina
         </p>
     </div>
 </section>
 
-<!-- Productos por Categoría - Modern Tabs -->
-<section class="py-12 bg-white" x-data="{ activeTab: 'alimentacion' }">
+<!-- Productos por Categoría -->
+<section class="py-12 bg-white" x-data="{ activeTab: '{{ categorias.0.id }}' }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Tabs - Modern Design -->
-        <div class="flex flex-wrap justify-center gap-3 mb-4">
-            <button @click="activeTab = 'alimentacion'" 
-                    :class="activeTab === 'alimentacion' ? 'bg-secondary text-white shadow-lg shadow-secondary/30' : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'"
+        <!-- Tabs -->
+        <div class="flex flex-wrap justify-center gap-3 mb-4" data-aos="fade-up" data-aos-duration="600">
+            {% for cat in categorias %}
+            <button @click="activeTab = '{{ cat.id }}'" 
+                    :class="activeTab === '{{ cat.id }}' ? 'bg-secondary text-white shadow-lg shadow-secondary/30' : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'"
                     class="px-5 py-2.5 font-bold text-sm tracking-wide rounded-xl transition-all duration-300 transform hover:-translate-y-0.5">
-                ALIMENTACIÓN
+                {{ cat.nombre }}
             </button>
-            <button @click="activeTab = 'silos'" 
-                    :class="activeTab === 'silos' ? 'bg-secondary text-white shadow-lg shadow-secondary/30' : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'"
-                    class="px-5 py-2.5 font-bold text-sm tracking-wide rounded-xl transition-all duration-300 transform hover:-translate-y-0.5">
-                SILOS Y ALMACENAMIENTO
-            </button>
-            <button @click="activeTab = 'equipos'" 
-                    :class="activeTab === 'equipos' ? 'bg-secondary text-white shadow-lg shadow-secondary/30' : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'"
-                    class="px-5 py-2.5 font-bold text-sm tracking-wide rounded-xl transition-all duration-300 transform hover:-translate-y-0.5">
-                EQUIPOS PARA PRODUCCIÓN PORCINA
-            </button>
-            <button @click="activeTab = 'repuestos'" 
-                    :class="activeTab === 'repuestos' ? 'bg-secondary text-white shadow-lg shadow-secondary/30' : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'"
-                    class="px-5 py-2.5 font-bold text-sm tracking-wide rounded-xl transition-all duration-300 transform hover:-translate-y-0.5">
-                REPUESTOS Y ACCESORIOS
-            </button>
-            <button @click="activeTab = 'complementarios'" 
-                    :class="activeTab === 'complementarios' ? 'bg-secondary text-white shadow-lg shadow-secondary/30' : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'"
-                    class="px-5 py-2.5 font-bold text-sm tracking-wide rounded-xl transition-all duration-300 transform hover:-translate-y-0.5">
-                EQUIPOS COMPLEMENTARIOS
-            </button>
+            {% endfor %}
         </div>
         
-        <!-- Contenido - Subcategorías como secciones colapsables -->
+        <!-- Contenido -->
         {% for categoria in categorias %}
         <div x-show="activeTab === '{{ categoria.id }}'" 
-             x-data="{ openSub: '{{ categoria.subcategorias.0.nombre|escapejs }}' }"
+             x-data="{ openSub: '' }"
              x-transition:enter="transition ease-out duration-300"
              x-transition:enter-start="opacity-0 transform scale-95"
-             x-transition:enter-end="opacity-100 transform scale-100"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 transform scale-100"
-             x-transition:leave-end="opacity-0 transform scale-95">
+             x-transition:enter-end="opacity-100 transform scale-100">
+            
+            <!-- Subcategorías -->
             {% for sub in categoria.subcategorias %}
-            <div class="mb-4 border border-gray-200 rounded-2xl overflow-hidden">
+            <div class="mb-4 border border-gray-200 rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ forloop.counter0 }}">
                 <button @click="openSub = openSub === '{{ sub.nombre|escapejs }}' ? '' : '{{ sub.nombre|escapejs }}'" class="w-full flex items-center justify-between p-5 bg-gray-50 hover:bg-gray-100 transition-colors">
                     <div class="flex items-center gap-3">
                         <h3 class="text-lg font-bold text-primary">{{ sub.nombre }}</h3>
@@ -81,31 +61,139 @@
                 <div x-show="openSub === '{{ sub.nombre|escapejs }}'" x-collapse x-cloak>
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
                         {% for producto in sub.productos %}
-                        <div class="group bg-white rounded-2xl overflow-hidden shadow-lg shadow-gray-200/50 border border-gray-100 hover:shadow-2xl hover:shadow-[#20A95D]/10 hover:border-green-200 transition-all duration-300 hover:-translate-y-2">
-                            <div class="aspect-[4/3] bg-gray-100 flex items-center justify-center p-4">
-                                <img src="{% static producto.imagen %}" 
-                                     alt="{{ producto.nombre }}" 
-                                     class="max-w-full max-h-full object-contain">
+                        <div class="group rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-2 card-hover {% if forloop.counter|divisibleby:2 %}bg-secondary{% else %}bg-primary{% endif %}"
+                             x-data="{
+                                 open{{ producto.id }}: false,
+                                 slide{{ producto.id }}: 0,
+                                 total{{ producto.id }}: {{ producto.imagenes|length|default:0 }},
+                                 prev{{ producto.id }}() { this.slide{{ producto.id }} = (this.slide{{ producto.id }} - 1 + this.total{{ producto.id }}) % this.total{{ producto.id }}; },
+                                 next{{ producto.id }}() { this.slide{{ producto.id }} = (this.slide{{ producto.id }} + 1) % this.total{{ producto.id }}; }
+                             }">
+                            
+                            <!-- Imagen -->
+                            <div class="aspect-[4/3] bg-white flex items-center justify-center p-4 img-zoom relative overflow-hidden">
+                                {% if producto.imagenes %}
+                                    {% for img in producto.imagenes %}
+                                    <img src="{% static img %}" 
+                                         alt="{{ producto.nombre }} - {{ forloop.counter }}" 
+                                         class="w-full h-full object-contain absolute inset-0 transition-opacity duration-500"
+                                         :class="slide{{ producto.id }} === {{ forloop.counter0 }} ? 'opacity-100 z-10' : 'opacity-0 z-0'">
+                                    {% endfor %}
+                                    {% if producto.imagenes|length > 1 %}
+                                    <button @click.stop="prev{{ producto.id }}()" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-primary/80 hover:bg-primary rounded-full flex items-center justify-center shadow-md transition-all z-20 opacity-0 group-hover:opacity-100">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                        </svg>
+                                    </button>
+                                    <button @click.stop="next{{ producto.id }}()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-primary/80 hover:bg-primary rounded-full flex items-center justify-center shadow-md transition-all z-20 opacity-0 group-hover:opacity-100">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                        </svg>
+                                    </button>
+                                    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        {% for img in producto.imagenes %}
+                                        <button @click.stop="slide{{ producto.id }} = {{ forloop.counter0 }}" class="w-2 h-2 rounded-full transition-all" :class="slide{{ producto.id }} === {{ forloop.counter0 }} ? 'bg-primary scale-110' : 'bg-gray-400'"></button>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                {% else %}
+                                    <svg class="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                                    </svg>
+                                {% endif %}
                             </div>
+                            
+                            <!-- Info -->
                             <div class="p-5">
-                                <h4 class="text-base font-bold text-gray-900 mb-2 group-hover:text-gray-900 transition-colors">{{ producto.nombre }}</h4>
-                                <p class="text-gray-600 mb-4 leading-relaxed text-sm">{{ producto.desc }}</p>
-                                <ul class="text-xs text-gray-500 space-y-1.5 mb-4">
-                                    {% for feature in producto.features %}
-                                    <li class="flex items-center gap-2">
-                                        <svg class="w-4 h-4 text-[#20A95D] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <h4 class="text-base font-bold text-white mb-2">{{ producto.nombre }}</h4>
+                                <p class="text-white/90 mb-3 leading-relaxed text-sm">{{ producto.desc }}</p>
+                                
+                                <!-- Features/Beneficios -->
+                                {% if producto.beneficios %}
+                                <p class="text-xs text-white/60 font-semibold mb-1">Beneficios:</p>
+                                <ul class="text-xs text-white/80 space-y-1.5 mb-4">
+                                    {% for beneficio in producto.beneficios %}
+                                    <li class="flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                                         </svg>
-                                        {{ feature }}
+                                        <span>{{ beneficio }}</span>
                                     </li>
                                     {% endfor %}
                                 </ul>
-                                <a href="{% url 'contacto' %}" class="group/btn inline-flex items-center text-gray-900 font-bold hover:text-gray-600 transition-colors">
-                                    COTIZAR AHORA
-                                    <svg class="w-5 h-5 ml-2 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                                    </svg>
-                                </a>
+                                {% endif %}
+                                
+                                <!-- Botones -->
+                                <div class="flex items-center gap-3">
+                                    <button @click="open{{ producto.id }} = !open{{ producto.id }}" class="group/btn inline-flex items-center text-white font-bold hover:text-white/80 transition-colors text-sm">
+                                        <span x-text="open{{ producto.id }} ? 'OCULTAR' : 'VER MÁS'"></span>
+                                        <svg class="w-4 h-4 ml-1 transform transition-transform" :class="open{{ producto.id }} ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </button>
+                                    <a href="{% url 'contacto' %}" class="group/btn inline-flex items-center text-white font-bold hover:text-white/80 transition-colors text-sm">
+                                        COTIZAR
+                                        <svg class="w-4 h-4 ml-1 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                                
+                                <!-- Panel expandible con detalles -->
+                                <div x-show="open{{ producto.id }}" x-collapse x-cloak class="mt-4 pt-4 border-t border-white/20">
+                                    {% if producto.descripcion %}
+                                    <p class="text-white/90 text-xs mb-3 leading-relaxed">{{ producto.descripcion }}</p>
+                                    {% endif %}
+                                    
+                                    {% if producto.materiales %}
+                                    <div class="mb-2">
+                                        <span class="text-white/60 text-xs font-semibold">Materiales:</span>
+                                        <p class="text-white/80 text-xs">{{ producto.materiales }}</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if producto.capacidad %}
+                                    <div class="mb-2">
+                                        <span class="text-white/60 text-xs font-semibold">Capacidad:</span>
+                                        <p class="text-white/80 text-xs">{{ producto.capacidad }}</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if producto.dimensiones %}
+                                    <div class="mb-2">
+                                        <span class="text-white/60 text-xs font-semibold">Dimensiones:</span>
+                                        <p class="text-white/80 text-xs">{{ producto.dimensiones }}</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if producto.regulacion %}
+                                    <div class="mb-2">
+                                        <span class="text-white/60 text-xs font-semibold">Regulación:</span>
+                                        <p class="text-white/80 text-xs">{{ producto.regulacion }}</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if producto.componentes %}
+                                    <div class="mb-2">
+                                        <span class="text-white/60 text-xs font-semibold">Componentes:</span>
+                                        <p class="text-white/80 text-xs">{{ producto.componentes }}</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if producto.aplicaciones %}
+                                    <div class="mb-2">
+                                        <span class="text-white/60 text-xs font-semibold">Aplicaciones:</span>
+                                        <p class="text-white/80 text-xs">{{ producto.aplicaciones }}</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if producto.especificaciones %}
+                                    <div class="mb-2">
+                                        <span class="text-white/60 text-xs font-semibold">Especificaciones:</span>
+                                        <p class="text-white/80 text-xs">{{ producto.especificaciones }}</p>
+                                    </div>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
@@ -118,37 +206,37 @@
     </div>
 </section>
 
-<!-- CTA Section - Modern -->
-<section class="relative py-12 bg-primary overflow-hidden">
+<!-- CTA Section -->
+<section class="py-12 bg-gradient-to-br from-primary via-primary to-green-700 relative overflow-hidden">
+    <div class="absolute inset-0">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-secondary/20 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -translate-x-1/2 translate-y-1/2"></div>
+    </div>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <span class="inline-block bg-white/20 backdrop-blur-sm text-white px-5 py-2 rounded-full text-sm font-semibold mb-6">
-            Catálogo Completo
-        </span>
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
-            ¿NO ENCUENTRAS<br/>
-            <span class="text-secondary">LO QUE BUSCAS?</span>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight" data-aos="fade-down" data-aos-duration="600">
+            ¿No encuentras lo que buscas?
         </h2>
-        <p class="text-white/90 text-sm mb-4 max-w-lg mx-auto">
-            Tenemos más de 50 productos disponibles. Contáctanos para recibir el catálogo completo personalizado.
+        <p class="text-white/90 text-lg mb-6" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+            Tenemos más de 87 productos disponibles.<br> Contáctanos para recibir el catálogo completo personalizado.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200">
             <a href="{% url 'contacto' %}" 
-               class="group inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-8 py-3.5 rounded-lg font-semibold text-sm hover:bg-green-50 transition-all shadow-lg shadow-primary/20">
-                <span>SOLICITAR CATÁLOGO</span>
-                <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               class="group inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-3.5 rounded-lg font-semibold text-lg hover:bg-green-50 transition-all shadow-xl btn-animate">
+                <span>Solicitar Catálogo</span>
+                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>
             </a>
-            <a href="https://wa.me/5215512345678?text=Hola%20ElectriPorc,%20necesito%20el%20catálogo%20completo" 
+            <a href="https://wa.me/573014968993?text=Hola%20ElectriPorc,%20necesito%20el%20cat%C3%A1logo%20completo" 
                target="_blank"
-               class="group inline-flex items-center justify-center gap-2 bg-transparent text-white border-2 border-white/50 px-7 py-3.5 rounded-lg font-semibold text-sm hover:bg-white/10 transition-all">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+               class="group inline-flex items-center justify-center gap-2 bg-transparent text-white border-2 border-white/50 px-7 py-3.5 rounded-lg font-semibold text-lg hover:bg-white/10 transition-all btn-animate">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
                 </svg>
-                <span>WhatsApp</span>
+                <span>Consultar por WhatsApp</span>
             </a>
         </div>
-        <p class="text-white/60 text-sm mt-8">Catálogo digital disponible en PDF, Excel o formato web</p>
+        <p class="text-white/60 text-sm mt-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">Catálogo digital disponible en PDF, Excel o formato web</p>
     </div>
 </section>
 {% endblock %}

@@ -31,6 +31,9 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('contacto/', views.contacto, name='contacto'),
     path('api/contacto/', views.api_contacto, name='api_contacto'),
+    path('terminos/', views.terminos, name='terminos'),
+    path('privacidad/', views.privacidad, name='privacidad'),
+    path('tratamiento-datos/', views.tratamiento_datos, name='tratamiento_datos'),
 ]
 
 if settings.DEBUG:

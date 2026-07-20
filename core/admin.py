@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Categoria, Subcategoria, Producto, Proyecto, Testimonio, FAQ, Servicio, MensajeContacto
+from django import forms
+from django.db import models
+from .models import Categoria, Subcategoria, Producto, ProductoImagen, Proyecto, ProyectoImagen, Testimonio, FAQ, Servicio, ServicioImagen, MensajeContacto
 
 
 class SubcategoriaInline(admin.TabularInline):
@@ -41,6 +43,18 @@ class SubcategoriaAdmin(admin.ModelAdmin):
     search_fields = ['nombre', 'descripcion']
 
 
+class ProductoImagenInline(admin.TabularInline):
+    model = ProductoImagen
+    extra = 1
+    fields = ['imagen', 'imagen_ruta', 'numero', 'orden', 'activa']
+    readonly_fields = ['numero']
+    ordering = ['orden']
+    verbose_name = "Imagen del Producto"
+    verbose_name_plural = "Imágenes (se guardan en static/img/productos/{categoria}/{producto}/)"
+    can_delete = True
+    show_change_link = True
+
+
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'categoria', 'subcategoria', 'destacado', 'disponible', 'orden']
@@ -53,7 +67,14 @@ class ProductoAdmin(admin.ModelAdmin):
             'fields': ('nombre', 'slug', 'categoria', 'subcategoria')
         }),
         ('Descripción', {
-            'fields': ('descripcion_corta', 'descripcion', 'caracteristicas')
+            'fields': ('descripcion_corta', 'descripcion')
+        }),
+        ('Detalles del Producto', {
+            'fields': ('materiales', 'capacidad', 'dimensiones', 'regulacion', 'componentes', 'aplicaciones', 'beneficios', 'especificaciones'),
+            'classes': ('collapse',)
+        }),
+        ('Características Extra', {
+            'fields': ('caracteristicas',)
         }),
         ('Medios', {
             'fields': ('imagen',)
@@ -62,14 +83,39 @@ class ProductoAdmin(admin.ModelAdmin):
             'fields': ('precio', 'disponible', 'destacado', 'orden')
         }),
     )
+    inlines = [ProductoImagenInline]
+
+
+class ProyectoImagenInline(admin.TabularInline):
+    model = ProyectoImagen
+    extra = 1
+    fields = ['imagen', 'imagen_ruta', 'numero', 'orden', 'activa']
+    readonly_fields = ['numero']
+    ordering = ['orden']
+    verbose_name = "Imagen del Proyecto"
+    verbose_name_plural = "Imágenes (se guardan en static/img/proyectos/{orden}/)"
+    can_delete = True
+    show_change_link = True
 
 
 @admin.register(Proyecto)
 class ProyectoAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'cliente', 'ubicacion', 'destacado', 'activo', 'fecha']
+    list_display = ['titulo', 'cliente', 'ubicacion', 'periodo_ejecucion', 'tipo_trabajo', 'destacado', 'activo', 'orden']
     list_filter = ['destacado', 'activo']
-    list_editable = ['destacado', 'activo']
+    list_editable = ['destacado', 'activo', 'orden']
     search_fields = ['titulo', 'cliente', 'descripcion']
+    fieldsets = (
+        (None, {
+            'fields': ('titulo', 'cliente', 'ubicacion', 'periodo_ejecucion', 'tipo_trabajo')
+        }),
+        ('Descripción', {
+            'fields': ('descripcion',)
+        }),
+        ('Estado', {
+            'fields': ('destacado', 'activo', 'orden')
+        }),
+    )
+    inlines = [ProyectoImagenInline]
 
 
 @admin.register(Testimonio)
@@ -97,13 +143,27 @@ class MensajeContactoAdmin(admin.ModelAdmin):
     readonly_fields = ['creado']
 
 
+class ServicioImagenInline(admin.TabularInline):
+    model = ServicioImagen
+    extra = 1
+    fields = ['imagen', 'imagen_ruta', 'numero', 'orden', 'activa']
+    readonly_fields = ['numero']
+    ordering = ['orden']
+    verbose_name = "Imagen del Servicio"
+    verbose_name_plural = "Imágenes (se guardan en static/img/servicios/{orden}/)"
+    can_delete = True
+    show_change_link = True
+
+
 @admin.register(Servicio)
 class ServicioAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'orden', 'activo']
     list_filter = ['activo']
     list_editable = ['orden', 'activo']
-    prepopulated_fields = {'slug': ('titulo',)}
     search_fields = ['titulo', 'descripcion']
+    formfield_overrides = {
+        models.TextField: {'widget': forms.Textarea(attrs={'rows': 3})},
+    }
     fieldsets = (
         (None, {
             'fields': ('titulo', 'slug', 'descripcion')
@@ -118,3 +178,4 @@ class ServicioAdmin(admin.ModelAdmin):
             'fields': ('orden', 'activo')
         }),
     )
+    inlines = [ServicioImagenInline]
