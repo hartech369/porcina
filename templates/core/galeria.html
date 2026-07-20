@@ -17,11 +17,11 @@
     <br>
     <br>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <h1 class="text-5xl sm:text-5xl font-bold text-secondary mb-4 leading-tight" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
-            Proyectos ElectriPorc</span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-secondary mb-4 leading-tight" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+            Proyectos ElectriPorc
         </h1>
-        <p class="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
-            Soluciones instaladas en granjas porcícolas <br> en toda Colombia y Latinoamérica
+        <p class="text-base sm:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
+            Soluciones instaladas en granjas porcícolas en toda Colombia y Latinoamérica
         </p>
     </div>
 </section>
@@ -64,7 +64,6 @@
                             <span class="text-white/90 text-sm">{{ proyecto.tipo_trabajo }}</span>
                         </div>
                     </div>
-                    <p class="text-white/90 text-sm leading-relaxed mb-4 {% if not imagenes %}line-clamp-none{% else %}line-clamp-4{% endif %}">{{ proyecto.descripcion }}</p>
                     {% if imagenes %}
                     <button @click="open{{ forloop.counter }} = !open{{ forloop.counter }}" class="flex items-center gap-2">
                         <span class="text-white text-sm font-semibold" x-text="open{{ forloop.counter }} ? 'Ocultar descripción' : 'Ver descripción completa'">Ver descripción completa</span>
@@ -80,25 +79,25 @@
                     {% endif %}
                 </div>
                 {% if imagenes %}
-                <div class="flex-1 relative overflow-hidden">
+                <div class="relative overflow-hidden h-64 md:h-auto md:flex-1">
                     {% for img in imagenes %}
                     <img src="{% static img.imagen_ruta %}" 
                          alt="{{ proyecto.titulo }} - {{ img.numero }}"
-                         class="w-full h-64 md:h-full object-cover absolute inset-0 transition-opacity duration-500"
-                         :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'opacity-100' : 'opacity-0'">
+                         class="w-full h-full object-cover md:absolute md:inset-0 transition-opacity duration-500"
+                         :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'opacity-100 z-10' : 'opacity-0 z-0'">
                     {% endfor %}
                     {% if imagenes|length > 1 %}
-                    <button @click="prev{{ forloop.counter }}()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10">
+                    <button @click="prev{{ forloop.counter }}()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-20">
                         <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
                     </button>
-                    <button @click="next{{ forloop.counter }}()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10">
+                    <button @click="next{{ forloop.counter }}()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-20">
                         <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
                     </button>
-                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                         {% for img in imagenes %}
                         <button @click="currentSlide{{ forloop.parentloop.counter }} = {{ forloop.counter0 }}" class="w-2.5 h-2.5 rounded-full transition-all" :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'bg-white scale-110' : 'bg-white/50'"></button>
                         {% endfor %}
@@ -112,25 +111,25 @@
             <!-- Imagen izquierda, texto derecha -->
             <div class="flex flex-col md:flex-row">
                 {% if imagenes %}
-                <div class="flex-1 relative overflow-hidden">
+                <div class="relative overflow-hidden h-64 md:h-auto md:flex-1">
                     {% for img in imagenes %}
                     <img src="{% static img.imagen_ruta %}" 
                          alt="{{ proyecto.titulo }} - {{ img.numero }}"
-                         class="w-full h-64 md:h-full object-cover absolute inset-0 transition-opacity duration-500"
-                         :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'opacity-100' : 'opacity-0'">
+                         class="w-full h-full object-cover md:absolute md:inset-0 transition-opacity duration-500"
+                         :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'opacity-100 z-10' : 'opacity-0 z-0'">
                     {% endfor %}
                     {% if imagenes|length > 1 %}
-                    <button @click="prev{{ forloop.counter }}()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10">
+                    <button @click="prev{{ forloop.counter }}()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-20">
                         <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                         </svg>
                     </button>
-                    <button @click="next{{ forloop.counter }}()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-10">
+                    <button @click="next{{ forloop.counter }}()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow-lg transition-all z-20">
                         <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
                     </button>
-                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
                         {% for img in imagenes %}
                         <button @click="currentSlide{{ forloop.parentloop.counter }} = {{ forloop.counter0 }}" class="w-2.5 h-2.5 rounded-full transition-all" :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'bg-white scale-110' : 'bg-white/50'"></button>
                         {% endfor %}
@@ -158,7 +157,6 @@
                             <span class="text-white/90 text-sm">{{ proyecto.tipo_trabajo }}</span>
                         </div>
                     </div>
-                    <p class="text-white/90 text-sm leading-relaxed mb-4 {% if not imagenes %}line-clamp-none{% else %}line-clamp-4{% endif %}">{{ proyecto.descripcion }}</p>
                     {% if imagenes %}
                     <button @click="open{{ forloop.counter }} = !open{{ forloop.counter }}" class="flex items-center gap-2">
                         <span class="text-white text-sm font-semibold" x-text="open{{ forloop.counter }} ? 'Ocultar descripción' : 'Ver descripción completa'">Ver descripción completa</span>

@@ -14,12 +14,12 @@
         <br>
         <br>
 
-        <h1 class="text-5xl sm:text-5xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight text-center" data-aos="fade-down" data-aos-duration="800">
-            <span class="text-primary text-5xl whitespace-nowrap block text-center">Aumenta la productividad de tu granja</span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight text-center" data-aos="fade-down" data-aos-duration="800">
+            <span class="text-primary block text-center">Aumenta la productividad de tu granja</span>
             
-            <span class="text-secondary text-4xl">con equipos confiables y acompañamiento</span> 
-            <br>
-            <span class="text-secondary text-4xl">técnico especializado</span>
+            <span class="text-secondary text-xl sm:text-2xl lg:text-4xl">con equipos confiables y acompañamiento</span> 
+            <br class="hidden sm:inline">
+            <span class="text-secondary text-xl sm:text-2xl lg:text-4xl">técnico especializado</span>
         </h1>
         
         <p class="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
@@ -46,7 +46,7 @@
                 </svg>
                 <span>Solicitar asesoría por WhatsApp</span>
             </a>
-            <a href="{% url 'productos' %}"
+            <a href="{% url 'servicios' %}"
                class="group inline-flex items-center justify-center gap-2 bg-secondary text-white px-8 py-3.5 rounded-lg font-semibold text-base hover:bg-white hover:text-secondary transition-all btn-animate">
                 <span>Conocer soluciones</span>
                 <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@
     <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-12">
-            <h2 class="text-5xl sm:text-5xl font-bold text-white mb-4" data-aos="fade-down" data-aos-duration="600">Soluciones para cada etapa de tu granja</h2>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4" data-aos="fade-down" data-aos-duration="600">Soluciones para cada etapa de tu granja</h2>
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
@@ -207,9 +207,9 @@
                 <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 leading-tight"><span class="bg-primary text-white px-2 py-0.5 rounded">Soluciones especializadas</span></h2>
                 <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 leading-tight"><span class="bg-secondary text-white px-2 py-0.5 rounded">en montaje vertical de silos</span></h2>
                 <br class="">
-                <p class="text-primary text-lg leading-tight mb-4">
-                    En Electriporc realizamos montaje vertical de silos <br>
-                    sin necesidad de grúa, utilizando equipos y métodos <br>
+                <p class="text-primary text-base sm:text-lg leading-tight mb-4">
+                    En Electriporc realizamos montaje vertical de silos
+                    sin necesidad de grúa, utilizando equipos y métodos
                     especializados directamente en campo.
                 </p>
                 <br>
@@ -244,7 +244,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                             </svg>
                         </div>
-                        <p class="text-gray-600 font-semibold text-base leading-tight whitespace-nowrap">Montaje seguro, funcional y adaptado a las condiciones de tu granja.</p>
+                        <p class="text-gray-600 font-semibold text-base leading-tight">Montaje seguro, funcional y adaptado a las condiciones de tu granja.</p>
                     </div>
                 </div>
             </div>
@@ -264,10 +264,9 @@
         <div class="absolute bottom-0 left-0 w-32 h-32 bg-primary/10 rounded-full -translate-x-1/2 translate-y-1/2"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-12">
-            <h2 class="text-5xl sm:text-5xl font-bold text-white mb-4 " data-aos="fade-up" data-aos-duration="600"><span class="text-white">Cada granja tiene necesidades distintas</h2>
-            <p class="text-white text-2xl max-w-4xl mx-auto leading-tight text-center whitespace-nowrap" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
-                Por eso en Electriporc revisamos las condiciones de tu operación <br>
-                para orientarte con soluciones técnicas a la medida.
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 " data-aos="fade-up" data-aos-duration="600"><span class="text-white">Cada granja tiene necesidades distintas</h2>
+            <p class="text-white text-lg sm:text-xl lg:text-2xl max-w-4xl mx-auto leading-tight text-center" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+                Por eso en Electriporc revisamos las condiciones de tu operación para orientarte con soluciones técnicas a la medida.
             </p>
         </div>
 
@@ -328,8 +327,7 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4" data-aos="fade-down" data-aos-duration="600">Hablemos de las necesidades de tu granja</h2>
         <p class="text-white/90 text-lg mb-8 max-w-xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
-            Cuéntanos qué proceso quieres mejorar y nuestro equipo<br>
-            te brindará asesoría técnica y comercial personalizada.
+            Cuéntanos qué proceso quieres mejorar y nuestro equipo te brindará asesoría técnica y comercial personalizada.
         </p>
         <a href="https://wa.me/573014968993?text=Hola%20ElectriPorc,%20necesito%20información" 
            target="_blank"
