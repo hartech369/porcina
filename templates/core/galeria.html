@@ -33,7 +33,7 @@
         {% with imagenes=proyecto.imagenes.all %}
         <div class="group rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-1 card-hover {% if forloop.counter|divisibleby:2 %}bg-secondary{% else %}bg-primary{% endif %}" 
              x-data="{ 
-                 open{{ forloop.counter }}: false, 
+                 open{{ forloop.counter }}: window.innerWidth >= 768, 
                  currentSlide{{ forloop.counter }}: 0, 
                  totalSlides{{ forloop.counter }}: {{ imagenes|length }},
                  prev{{ forloop.counter }}() { this.currentSlide{{ forloop.counter }} = (this.currentSlide{{ forloop.counter }} - 1 + this.totalSlides{{ forloop.counter }}) % this.totalSlides{{ forloop.counter }}; },
