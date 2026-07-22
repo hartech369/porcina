@@ -83,7 +83,7 @@
                     {% for img in imagenes %}
                     <img src="{% static img.imagen_ruta %}" 
                          alt="{{ proyecto.titulo }} - {{ img.numero }}"
-                         class="w-full h-full object-cover md:absolute md:inset-0 transition-opacity duration-500"
+                         class="w-full h-full object-cover absolute inset-0 transition-opacity duration-500"
                          :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'opacity-100 z-10' : 'opacity-0 z-0'">
                     {% endfor %}
                     {% if imagenes|length > 1 %}
@@ -115,7 +115,7 @@
                     {% for img in imagenes %}
                     <img src="{% static img.imagen_ruta %}" 
                          alt="{{ proyecto.titulo }} - {{ img.numero }}"
-                         class="w-full h-full object-cover md:absolute md:inset-0 transition-opacity duration-500"
+                         class="w-full h-full object-cover absolute inset-0 transition-opacity duration-500"
                          :class="currentSlide{{ forloop.parentloop.counter }} === {{ forloop.counter0 }} ? 'opacity-100 z-10' : 'opacity-0 z-0'">
                     {% endfor %}
                     {% if imagenes|length > 1 %}
